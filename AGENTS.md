@@ -8,6 +8,8 @@ This is a personal AWS certification study repository, structured as a **living 
 
 The goal is **not** to accumulate raw notes. Every document is a synthesized, permanently useful reference — written at a senior practitioner level, optimized for long-term recall, and grounded in real-world applicability. Think of it as a technical handbook, not a transcript.
 
+**Succinctness is a first-class requirement.** Documents must cover what a practitioner needs to know for the SAA-C03 exam and real-world use — not every possible feature variant, API parameter, or edge case. Prefer one sharp, well-chosen example over three overlapping ones. Every sentence must earn its place; if removing it loses nothing, remove it.
+
 ---
 
 ## Repository Structure
@@ -48,6 +50,7 @@ Every document **must** follow this exact section order. Do not add, remove, ren
 ## Practical Application / Examples
 ## Critical Considerations
 ## Critical Synthesis Note
+## SAA-C03 Exam Focus
 ```
 
 ### Section Specifications
@@ -80,6 +83,15 @@ A bullet list of production pitfalls, edge cases, risks, limitations, and common
 Mandatory. Must contain two things:
 1. A **high-level architectural insight** — something non-obvious that reframes how the service fits into the broader ecosystem. Not a summary of what was already said.
 2. A **documented knowledge gap** — something the input or AWS documentation does not clearly answer, stated as a specific open question for further research.
+
+**`## SAA-C03 Exam Focus`**
+Mandatory. A compact, scannable bullet list of the specific facts, distinctions, and decision rules this topic is tested on in the SAA-C03 exam. Each bullet must be self-contained and written as a testable statement — not a topic header. Cover:
+- The key **"if X → use Y"** decision rules the exam scenario questions rely on
+- The most common **wrong-answer traps** (what the exam tries to trick you into choosing and why it's wrong)
+- Any **hard limits, numbers, or constraints** the exam expects you to recall
+- The single most important **distinction** for this topic (e.g., System vs. Instance check, Basic vs. Detailed Monitoring)
+
+Keep to **5–8 bullets maximum**. This is a rapid-recall cheat sheet, not a document summary. If a point was already obvious from the rest of the document, omit it — include only what a test-taker is likely to forget or confuse under pressure.
 
 ---
 
@@ -163,6 +175,13 @@ AWS Athena addresses the operational and financial cost of running ad-hoc analyt
 ...
 
 **Knowledge gap requiring further research**: ...
+
+---
+
+## SAA-C03 Exam Focus
+
+- ...
+- ...
 ```
 
 ---
@@ -222,6 +241,13 @@ Used for EC2 and networking topics. Includes exam-oriented callouts and a consol
 
 ---
 
+## SAA-C03 Exam Focus
+
+- ...
+- ...
+
+---
+
 **Primary AWS Documentation:** https://docs.aws.amazon.com/...
 **Related Reference 1:** https://docs.aws.amazon.com/...
 **Related Reference 2:** https://docs.aws.amazon.com/...
@@ -269,13 +295,15 @@ IAM:               https://docs.aws.amazon.com/IAM/latest/UserGuide/<topic>.html
 | **File names** | Lowercase, hyphenated: `vpc-endpoints.md`, `cloudwatch.md` |
 | **Headings** | `#` for title, `##` for schema sections, `###` for subsections — no deeper than `###` |
 | **Tone** | Analytical, authoritative, zero fluff. Every sentence must deliver information. |
-| **Length** | No artificial length limits. Dense and complete beats short and shallow. |
+| **Length** | Prefer concise over exhaustive. A focused 300-word section beats a bloated 800-word one. Include only what changes how a practitioner thinks or acts — cut the rest. |
 
 ---
 
 ## What NOT to Do
 
 - **Do not summarize or rephrase** source material. Synthesize — find the underlying logic, hierarchy, and relationships.
+- **Do not document exhaustively**. The SAA-C03 exam tests concepts, distinctions, and decision logic — not API encyclopedias. Omit feature variants, parameters, and edge cases that don't change how you reason about a service. One precise example beats three overlapping ones.
+- **Do not pad sections to meet a minimum**. The "Minimum 6–8 bullets" for Critical Considerations is a floor for complex topics — not a target. Five high-signal bullets are better than eight where two repeat the same point in different words.
 - **Do not omit the Critical Synthesis Note**. It is the highest-value section and the hardest to write. It must contain a non-obvious insight and an open knowledge gap.
 - **Do not use marketing language**: "powerful," "robust," "seamlessly," "cutting-edge" — eliminate these entirely.
 - **Do not skip code blocks**. Every Procedure section must demonstrate real syntax. Pseudocode is not acceptable.
@@ -311,6 +339,7 @@ Before creating a new document, verify:
 - [ ] Real-world scenario with measurable outcome in Practical Application
 - [ ] Minimum 6 Critical Considerations bullets
 - [ ] Critical Synthesis Note contains both a non-obvious insight AND a documented knowledge gap
+- [ ] SAA-C03 Exam Focus section present with 5–8 testable bullets (decision rules, traps, hard limits, key distinctions)
 - [ ] AWS documentation links present (inline + bottom section for Pattern B)
 - [ ] No marketing language or filler words
 - [ ] Scope limited to the folder's domain context
