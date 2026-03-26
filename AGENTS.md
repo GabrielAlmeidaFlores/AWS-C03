@@ -67,7 +67,7 @@ Break down the core pillars. Must include:
 **`## Procedure or Logic`**
 For processes: a sequential, numbered-style bullet walkthrough (use `**Step N —**` format).
 For concepts: a structured chain of reasoning.
-Must include at least one **code block** — CLI commands, configuration files, or scripts demonstrating real usage.
+**This repository focuses on SAA-C03 exam concepts — do not include CLI commands.** Use architecture diagrams (ASCII) or configuration snippets (JSON/YAML) only when they directly clarify a concept that cannot be expressed in prose. The focus is always on conceptual understanding and exam-relevant decision logic, not commands or syntax.
 
 **`## Practical Application / Examples`**
 At minimum one concrete, real-world scenario. Structure it as:
@@ -289,7 +289,7 @@ IAM:               https://docs.aws.amazon.com/IAM/latest/UserGuide/<topic>.html
 |---|---|
 | **Section separators** | Use `---` between every section |
 | **Emphasis** | Use `**bold**` for terms, warnings, and key distinctions |
-| **Code** | Use fenced code blocks with language hint (` ```bash `, ` ```sql `, ` ```json `, ` ```python `) |
+| **Code** | Use fenced code blocks with language hint (` ```json `, ` ```yaml `, ` ```text `) only for architecture diagrams or configuration examples that clarify a concept. **No CLI commands.** |
 | **Tables** | Use for all comparisons with 2+ dimensions; always include a header row |
 | **Lists** | Use `-` bullets for unordered; use `**Step N —**` prefix for sequential procedures |
 | **File names** | Lowercase, hyphenated: `vpc-endpoints.md`, `cloudwatch.md` |
@@ -306,7 +306,7 @@ IAM:               https://docs.aws.amazon.com/IAM/latest/UserGuide/<topic>.html
 - **Do not pad sections to meet a minimum**. The "Minimum 6–8 bullets" for Critical Considerations is a floor for complex topics — not a target. Five high-signal bullets are better than eight where two repeat the same point in different words.
 - **Do not omit the Critical Synthesis Note**. It is the highest-value section and the hardest to write. It must contain a non-obvious insight and an open knowledge gap.
 - **Do not use marketing language**: "powerful," "robust," "seamlessly," "cutting-edge" — eliminate these entirely.
-- **Do not skip code blocks**. Every Procedure section must demonstrate real syntax. Pseudocode is not acceptable.
+- **Do not include CLI commands**. This repository focuses on SAA-C03 exam concepts. CLI syntax is not tested and adds noise. Use prose, tables, and architecture diagrams instead.
 - **Do not create documents in the root folder** except for project-level meta-files.
 - **Do not commit or push changes** unless explicitly instructed by the user.
 - **Do not create planning or notes files** (e.g., `TODO.md`, `plan.md`) in the repository. Work in memory.
@@ -335,7 +335,7 @@ Before creating a new document, verify:
 - [ ] All 6 schema sections present in the correct order
 - [ ] Terminology table included in Fundamental Concepts
 - [ ] At least one comparison table included
-- [ ] Step-by-step procedure with code block(s)
+- [ ] Step-by-step procedure in prose (no CLI commands — use architecture diagrams or config snippets only if they clarify a concept)
 - [ ] Real-world scenario with measurable outcome in Practical Application
 - [ ] Minimum 6 Critical Considerations bullets
 - [ ] Critical Synthesis Note contains both a non-obvious insight AND a documented knowledge gap
