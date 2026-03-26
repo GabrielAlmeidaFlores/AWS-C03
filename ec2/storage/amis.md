@@ -8,7 +8,7 @@
 
 The result: identical, pre-configured instances launch in seconds rather than minutes, with zero configuration drift between them.
 
-> **Exam lens:** Key distinctions tested are **EBS-backed vs. instance store-backed** (can you stop it? can you recover it?), **AMIs are region-specific** (must copy to use elsewhere), and the **Golden AMI pattern** as the correct answer for launching pre-configured fleets consistently.
+> **Exam lens:** Key distinctions tested are **EBS-backed vs. instance store-backed** (can you stop it? can you recover it?), **AMIs are region-specific** (must copy to use elsewhere), the **no-reboot option** (consistency vs. availability tradeoff), and the **Golden AMI pattern** as the correct answer for launching pre-configured fleets consistently.
 
 **AWS Reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
 
@@ -48,38 +48,52 @@ The vast majority of modern workloads use EBS-backed AMIs. Instance store-backed
 
 ## Procedure or Logic
 
+### How an AMI Is Created
+
 - **Step 1 — Configure a source instance**: Launch an instance, install and configure OS, software, agents, and hardening. This is the baseline that will be baked into the AMI.
-
-- **Step 2 — Create the AMI**: AWS stops the instance (for EBS-backed), takes a snapshot of the root volume (and any mapped EBS volumes), and registers the AMI with those snapshot IDs embedded in the block device mapping. The AMI ID is region-specific.
-
+- **Step 2 — Create the AMI**: AWS snapshots the root volume (and any mapped EBS volumes) and registers the AMI with those snapshot IDs embedded in the block device mapping. The AMI ID is region-specific.
 - **Step 3 — Launch instances from the AMI**: Any instance launched from this AMI gets an exact copy of the root volume (via snapshot restore) with the pre-configured software state.
+- **Step 4 — Copy to other regions if needed**: AMIs cannot be launched in a region where they don't exist. Copying replicates both the AMI metadata and the underlying snapshots; the AMI gets a new ID in the target region.
 
-- **Step 4 — Copy to other regions (if needed)**: AMIs cannot be launched in a region where they don't exist. Copy the AMI to replicate both the metadata and the underlying snapshots.
+---
 
-```bash
-# Create an AMI from a running or stopped instance
-aws ec2 create-image \
-  --instance-id i-0abc1234567890def \
-  --name "golden-ami-app-v2-$(date +%Y%m%d)" \
-  --description "Hardened app server with agent v2.3" \
-  --no-reboot   # skip reboot for speed; may affect filesystem consistency
+### The No-Reboot Option
 
-# Copy an AMI to another region for multi-region deployment
-aws ec2 copy-image \
-  --source-region us-east-1 \
-  --source-image-id ami-0abc1234567890def \
-  --region eu-west-1 \
-  --name "golden-ami-app-v2-eu"
+By default, AWS **reboots the instance** before snapshotting it. The reboot flushes all in-memory write buffers and brings the filesystem to a clean, consistent state.
 
-# Share an AMI with another AWS account
-aws ec2 modify-image-attribute \
-  --image-id ami-0abc1234567890def \
-  --launch-permission "Add=[{UserId=123456789012}]"
+The **no-reboot option** skips this reboot — the snapshot is taken while the instance continues running. It is available in both the **AWS Console** (uncheck "Reboot instance" in the Create Image dialog) and the **AWS CLI**.
 
-# Deregister an AMI (does NOT delete snapshots)
-aws ec2 deregister-image --image-id ami-0abc1234567890def
-# Must separately delete snapshots if cleanup is needed
-```
+| Behavior | Default (reboot) | No-reboot |
+|---|---|---|
+| **Instance rebooted** | ✅ Yes — before snapshot | ❌ No — snapshot taken live |
+| **Filesystem consistency** | ✅ Guaranteed | ⚠️ Not guaranteed |
+| **Instance downtime** | Brief (reboot duration) | None |
+| **Safe for databases** | ✅ Yes | ❌ No — open transactions may be captured mid-write |
+| **Safe for stateless app servers** | ✅ Yes | ✅ Yes |
+
+Use no-reboot only on stateless instances where no in-flight writes exist. Never use it for databases or any instance with open write transactions.
+
+**AWS Reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html
+
+---
+
+### Sharing AMIs Cross-Account
+
+AMI sharing is controlled via **launch permissions**. The owner retains full control; the recipient can launch instances from the AMI without it being copied to their account.
+
+| Permission Level | Who Can Launch | How to Set |
+|---|---|---|
+| **Private** (default) | Owner only | No action needed |
+| **Shared** | Specific AWS account IDs | Console: Edit AMI permissions → add account IDs |
+| **Public** | Anyone with an AWS account | Console: Edit AMI permissions → set to Public |
+
+**Critical distinction — AMI sharing ≠ snapshot sharing:**
+Sharing an AMI lets the recipient **launch instances** from it. It does **not** grant access to the underlying EBS snapshots. If the recipient needs to **copy** the AMI to their own account, the owner must separately share the underlying snapshots.
+
+**Encrypted AMIs — additional requirement:**
+If the AMI's snapshots are encrypted with a **customer-managed KMS key (CMK)**, the owner must also grant the recipient account access to that KMS key via a key policy. Without this, the recipient cannot decrypt the volume during instance launch even if the AMI is shared.
+
+**AWS Reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sharingamis-explicit.html
 
 ---
 
@@ -87,16 +101,14 @@ aws ec2 deregister-image --image-id ami-0abc1234567890def
 
 ### Scenario: Golden AMI Pipeline for a Hardened Application Fleet
 
-A security team requires all EC2 instances to launch with: CIS-hardened Amazon Linux 2023, CloudWatch Agent pre-installed and configured, SSM Agent, and a specific app version baked in. Manual installs are banned.
-
-**Architecture:**
+A security team requires all EC2 instances to launch with CIS-hardened Amazon Linux 2023, CloudWatch Agent, SSM Agent, and a specific app version baked in. Manual installs are banned.
 
 ```
 CodePipeline (weekly trigger)
   └── EC2 Image Builder
         ├── Base: AWS-provided Amazon Linux 2023 AMI
-        ├── Component: CIS Level 1 hardening script
-        ├── Component: CloudWatch Agent install + config
+        ├── Component: CIS Level 1 hardening
+        ├── Component: CloudWatch Agent + config
         ├── Component: App v2.3 install
         └── Output: Golden AMI (us-east-1)
               └── AMI copy → eu-west-1, ap-southeast-1
@@ -105,23 +117,25 @@ CodePipeline (weekly trigger)
                                 └── ASGs always launch latest golden AMI
 ```
 
-**Outcome**: Every instance in every region launches from an identical, tested, hardened image. AMI version is updated weekly with zero changes to Launch Templates (they resolve the SSM parameter at launch time).
+**Outcome**: Every instance in every region launches from an identical, tested, hardened image. AMI version is updated weekly with zero changes to Launch Templates.
 
 ---
 
 ## Critical Considerations
 
-- **Deregistering an AMI does not delete its snapshots**: After `deregister-image`, the underlying EBS snapshots remain and continue to incur storage costs. Explicitly delete them afterward if the AMI is no longer needed.
+- **Deregistering an AMI does not delete its snapshots**: After deregistration, the underlying EBS snapshots remain and continue to incur storage costs. Delete them explicitly if the AMI is no longer needed.
 
-- **AMIs are regional — cross-region deployment requires explicit copy**: A Launch Template in `eu-west-1` cannot reference an AMI ID from `us-east-1`. Copy the AMI before deploying to a new region. AMI IDs differ between regions even for the same image content.
+- **AMIs are region-specific**: A Launch Template in `eu-west-1` cannot reference an AMI from `us-east-1`. The AMI ID changes on copy even if the content is identical.
 
-- **`--no-reboot` risks filesystem inconsistency**: Skipping the reboot during AMI creation means in-flight writes may not be flushed. Safe for stateless app servers; risky for databases or any instance with open write transactions.
+- **No-reboot risks filesystem inconsistency**: Skipping the reboot means in-flight writes may not be flushed to disk. Safe only for stateless instances with no open write transactions.
 
-- **Public AMIs can expose data**: If an AMI is made public and its snapshot contained sensitive data (credentials, application secrets), that data becomes accessible to anyone. Audit AMI permissions before sharing.
+- **Public AMIs can expose sensitive data**: If a snapshot contained credentials or application secrets before the AMI was made public, that data is accessible to anyone. Audit AMI content and permissions before sharing.
 
-- **AMI launch permissions do not control snapshot access**: Sharing an AMI with another account lets them launch instances from it. It does not automatically grant access to the underlying snapshots. If they need to copy the AMI, you must also share the snapshots.
+- **AMI sharing ≠ snapshot sharing**: Sharing an AMI grants launch rights only. The recipient cannot copy the AMI to their account without explicit snapshot sharing. Encrypted AMIs also require KMS key policy grants.
 
-- **EC2 Image Builder is the production-grade AMI pipeline**: For teams building AMIs regularly, Image Builder provides versioning, testing, distribution pipelines, and compliance scanning. Ad-hoc `create-image` calls do not scale operationally.
+- **EC2 Image Builder is the production-grade AMI pipeline**: For teams building AMIs regularly, Image Builder provides versioning, testing, automated distribution, and compliance scanning. Ad-hoc manual AMI creation does not scale.
+
+- **AMI IDs are not portable**: The same AMI content has a different ID in every region after copy. Hardcoding AMI IDs in infrastructure code causes cross-region launch failures — use SSM Parameter Store to abstract AMI references.
 
 ---
 
@@ -129,20 +143,20 @@ CodePipeline (weekly trigger)
 
 > **High-level insight — An AMI is a deployment artifact, not a backup tool:**
 >
-> The operational role of an AMI is identical to a Docker image or a VM template in on-premises infrastructure: it is an immutable, versioned, deployable unit. Treating AMIs as backups (snapshot the running instance every night) conflates two concerns — instance recovery (handled by snapshots + Auto Recovery) and configuration management (handled by AMIs). A well-run org maintains a Golden AMI pipeline separate from its backup strategy.
+> The operational role of an AMI is identical to a Docker image or a VM template: it is an immutable, versioned, deployable unit. Treating AMIs as instance backups conflates two distinct concerns — instance recovery (handled by EBS snapshots + Auto Recovery) and configuration management (handled by AMIs). A well-run org maintains a Golden AMI pipeline entirely separate from its backup strategy.
 
-> **Knowledge gap requiring further research**: The behavior of Launch Templates referencing an SSM parameter for AMI ID when the parameter is updated — specifically whether running instances in an ASG are replaced automatically or only on the next scale-out event — warrants verification for zero-downtime Golden AMI rollout strategies.
+> **Knowledge gap requiring further research**: The behavior of Launch Templates referencing an SSM parameter for AMI ID when the parameter is updated — specifically whether running ASG instances are replaced automatically or only on the next scale-out event — warrants verification for zero-downtime Golden AMI rollout strategies.
 
 ---
 
 ## SAA-C03 Exam Focus
 
 - **AMIs are region-specific** — always copy before using in another region; the AMI ID changes on copy.
-- **EBS-backed = stoppable; instance store-backed = not stoppable** — this is the most common tested distinction. Instance store data is lost on stop or terminate.
-- **Deregister ≠ delete snapshots** — deregistering an AMI leaves its snapshots intact; you must delete them separately to stop incurring costs.
-- **Golden AMI pattern** — when the question asks how to ensure all instances launch with the same pre-configured software/hardening, the answer is a Golden AMI (not User Data scripts, which run at boot and are slower/less consistent).
-- **`--no-reboot` flag** — skipping reboot speeds up AMI creation but risks filesystem inconsistency; only safe for stateless instances.
-- **Sharing an AMI does not share its snapshots** — the recipient can launch instances but cannot copy the AMI without explicit snapshot sharing.
+- **EBS-backed = stoppable; instance store-backed = not stoppable** — instance store data is lost on stop or terminate.
+- **Deregister ≠ delete snapshots** — deregistering an AMI leaves its snapshots intact; delete them separately to stop incurring costs.
+- **Golden AMI pattern** — when the question asks how to ensure all instances launch with the same pre-configured software/hardening, the answer is Golden AMI (not User Data, which runs at boot and is slower/less consistent).
+- **No-reboot** — skips the pre-snapshot reboot; speeds up AMI creation but risks filesystem inconsistency; only safe for stateless instances.
+- **AMI sharing ≠ snapshot sharing** — recipient can launch but cannot copy the AMI without explicit snapshot sharing; encrypted AMIs also require KMS key access.
 
 ---
 
@@ -150,4 +164,5 @@ CodePipeline (weekly trigger)
 **EBS-Backed vs Instance Store-Backed:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html
 **Creating an AMI from an Instance:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html
 **Copying an AMI:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
+**Sharing an AMI:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sharingamis-explicit.html
 **EC2 Image Builder:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html
