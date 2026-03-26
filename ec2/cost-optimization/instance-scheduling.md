@@ -187,6 +187,9 @@ Total: ~$9,318/year  →  savings: ~$22,000/year (70% reduction)
 ---
 
 **Primary AWS Documentation (EventBridge Scheduler):** https://docs.aws.amazon.com/scheduler/latest/UserGuide/what-is-scheduler.html
+
 **AWS Instance Scheduler Solution:** https://aws.amazon.com/solutions/implementations/instance-scheduler-on-aws/
+
 **EventBridge Scheduler Targets (EC2):** https://docs.aws.amazon.com/scheduler/latest/UserGuide/managing-targets-universal.html
+
 **EC2 Instance Lifecycle:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html

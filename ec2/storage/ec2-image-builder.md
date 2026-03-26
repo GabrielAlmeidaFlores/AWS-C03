@@ -161,7 +161,11 @@ Image Pipeline (weekly schedule)
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html
+
 **Image Recipes:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/manage-recipes.html
+
 **Components:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/manage-components.html
+
 **Distribution Configuration:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/manage-distribution-settings.html
+
 **Infrastructure Configuration:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/manage-infra-config.html

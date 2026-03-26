@@ -158,5 +158,7 @@ Launch once with hibernation enabled + encrypted root volume (≥ 60 GB free for
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html
+
 **Hibernate Prerequisites:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html
+
 **Instance Lifecycle:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html

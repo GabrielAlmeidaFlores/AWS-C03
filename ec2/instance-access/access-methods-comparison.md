@@ -178,7 +178,11 @@ EIC Endpoint is limited to **1 per VPC**. Deploying one per VPC is possible but 
 ---
 
 **EC2 Instance Connect full documentation:** https://github.com/GabrielAlmeidaFlores/AWS-C03/blob/main/ec2/instance-access/ec2-instance-connect.md
+
 **SSM Session Manager full documentation:** https://github.com/GabrielAlmeidaFlores/AWS-C03/blob/main/ec2/instance-access/ssm-session-manager.md
+
 **AWS official comparison guidance:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-to-linux-instance.html
+
 **EIC AWS docs:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-eic.html
+
 **SSM Session Manager AWS docs:** https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html

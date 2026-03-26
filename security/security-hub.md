@@ -378,11 +378,19 @@ aws events put-rule \
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html
+
 **Security standards available:** https://docs.aws.amazon.com/securityhub/latest/userguide/standards-available.html
+
 **ASFF (Amazon Security Finding Format):** https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html
+
 **Multi-account management:** https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-accounts.html
+
 **Cross-region aggregation:** https://docs.aws.amazon.com/securityhub/latest/userguide/finding-aggregation.html
+
 **Automated response with EventBridge:** https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-cloudwatch-events.html
+
 **Integrations (native + third-party):** https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-integrations.html
+
 **Enabling Security Hub via Organizations:** https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-orgs-delegated-admin.html
+
 **Security Hub pricing:** https://aws.amazon.com/security-hub/pricing/

@@ -145,6 +145,9 @@ echo "broker.rack=partition-${PARTITION}" >> /etc/kafka/server.properties
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html
+
 **EC2 Instance Types supporting Placement Groups:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#concepts-placement-groups
+
 **Enhanced Networking on EC2:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/enhanced-networking.html
+
 **EC2 Pricing (Placement Groups are free):** https://aws.amazon.com/ec2/pricing/

@@ -157,7 +157,11 @@ eu-west-1 (DR region)
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html
+
 **Fast Snapshot Restore:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-fast-snapshot-restore.html
+
 **Data Lifecycle Manager:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html
+
 **Snapshot Recycle Bin:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin.html
+
 **Copying Snapshots:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-copy-snapshot.html

@@ -267,9 +267,15 @@ aws ssm start-session --target mi-0abcde12345
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html
+
 **IAM permissions for Session Manager:** https://docs.aws.amazon.com/systems-manager/latest/userguide/getting-started-restrict-access-quickstart.html
+
 **VPC Endpoints for SSM (private subnet setup):** https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-create-vpc.html
+
 **SSM Agent installation:** https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html
+
 **Port forwarding sessions:** https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html
+
 **Hybrid activations (on-premises):** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html
+
 **Session Manager pricing:** https://aws.amazon.com/systems-manager/pricing/
