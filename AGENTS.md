@@ -290,6 +290,7 @@ IAM:               https://docs.aws.amazon.com/IAM/latest/UserGuide/<topic>.html
 | **Section separators** | Use `---` between every section |
 | **Emphasis** | Use `**bold**` for terms, warnings, and key distinctions |
 | **Code** | Use fenced code blocks with language hint (` ```json `, ` ```yaml `, ` ```text `) only for architecture diagrams or configuration examples that clarify a concept. **No CLI commands.** |
+| **Reference links** | Each reference link must be on its own line with a **blank line between each entry** — never place consecutive reference lines without a blank line separator, or they will render as a single paragraph. |
 | **Tables** | Use for all comparisons with 2+ dimensions; always include a header row |
 | **Lists** | Use `-` bullets for unordered; use `**Step N —**` prefix for sequential procedures |
 | **File names** | Lowercase, hyphenated: `vpc-endpoints.md`, `cloudwatch.md` |

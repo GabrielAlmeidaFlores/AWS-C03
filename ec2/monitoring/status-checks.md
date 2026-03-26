@@ -350,10 +350,17 @@ EC2 Instance (m5.xlarge, EBS root, VPC)
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-system-instance-status-check.html
+
 **EC2 Auto Recovery:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html
+
 **Scheduled Instance Events:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-instances-status-check_sched.html
+
 **CloudWatch Alarms — Create and Edit:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
+
 **CloudWatch Alarm Actions for EC2:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/UsingAlarmActions.html
+
 **treat-missing-data Reference:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data
+
 **describe-instance-status CLI Reference:** https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instance-status.html
+
 **EBS Volume Status Checks:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-volume-status.html

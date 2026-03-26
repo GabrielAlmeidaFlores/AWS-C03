@@ -274,9 +274,15 @@ A compliance team requires that EC2 instances in the production VPC can **only**
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html
+
 **Gateway Endpoints for S3:** https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html
+
 **Gateway Endpoints for DynamoDB:** https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-dynamodb.html
+
 **Interface Endpoints (PrivateLink):** https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html
+
 **VPC Endpoint Services (expose your own service):** https://docs.aws.amazon.com/vpc/latest/privatelink/create-endpoint-service.html
+
 **Endpoint Policies:** https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html
+
 **AWS PrivateLink pricing:** https://aws.amazon.com/privatelink/pricing/

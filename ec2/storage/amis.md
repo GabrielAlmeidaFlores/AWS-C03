@@ -161,8 +161,13 @@ CodePipeline (weekly trigger)
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
+
 **EBS-Backed vs Instance Store-Backed:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/RootDeviceStorage.html
+
 **Creating an AMI from an Instance:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html
+
 **Copying an AMI:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
+
 **Sharing an AMI:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sharingamis-explicit.html
+
 **EC2 Image Builder:** https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html

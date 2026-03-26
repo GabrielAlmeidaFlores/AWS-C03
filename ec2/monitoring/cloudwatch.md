@@ -260,11 +260,19 @@ CloudWatch Dashboard:
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring_ec2.html
+
 **CloudWatch Agent Setup for EC2:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html
+
 **CloudWatch Agent Configuration Reference:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-Configuration-File-Details.html
+
 **EC2 Auto Recovery:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-recover.html
+
 **EC2 Status Checks:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-system-instance-status-check.html
+
 **CloudWatch Alarms:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
+
 **Detailed Monitoring for EC2:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch-new.html
+
 **CloudWatch Logs with EC2:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/QuickStartEC2Instance.html
+
 **IAM Role for CloudWatch Agent:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create-iam-roles-for-cloudwatch-agent.html

@@ -11,6 +11,7 @@ The core rule: **a snapshot is a storage backup; an AMI is an instance blueprint
 > **Exam lens:** SAA-C03 scenario questions test whether you know which primitive to use for a given goal: recovering data after volume corruption → snapshot. Launching pre-configured instances consistently → AMI. Moving an instance to another region → AMI copy (which copies its underlying snapshots). The exam also tests that an AMI wraps snapshots — deregistering an AMI does not delete its snapshots.
 
 **AWS Reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
+
 **AWS Reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html
 
 ---
@@ -155,7 +156,11 @@ Data volumes (vol-data-1, vol-data-2) — ENCRYPTED BY RANSOMWARE
 ---
 
 **EBS Snapshots Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html
+
 **AMI Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html
+
 **Copying AMIs:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html
+
 **Copying Snapshots:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-copy-snapshot.html
+
 **Deregistering an AMI:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/deregister-ami.html

@@ -346,13 +346,23 @@ aws ssm get-parameters-by-path \
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html
+
 **SSM Agent installation and configuration:** https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html
+
 **Setting up SSM (IAM, VPC Endpoints):** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html
+
 **VPC Endpoints for SSM:** https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-create-vpc.html
+
 **Run Command:** https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html
+
 **Patch Manager:** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-patch.html
+
 **Parameter Store:** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html
+
 **State Manager:** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html
+
 **Automation:** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html
+
 **Hybrid Activations:** https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html
+
 **SSM Pricing:** https://aws.amazon.com/systems-manager/pricing/

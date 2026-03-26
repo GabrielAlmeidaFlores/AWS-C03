@@ -219,7 +219,11 @@ Access is enforced at the IAM layer — no SSH config changes on the instances r
 ---
 
 **Primary AWS Documentation:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-linux-inst-eic.html
+
 **EIC Endpoint announcement:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-using-eice.html
+
 **IAM permissions reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/permissions-for-ec2-instance-connect.html
+
 **AWS IP ranges (for SG rules):** https://ip-ranges.amazonaws.com/ip-ranges.json
+
 **EC2 Instance Connect vs Session Manager:** https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html
