@@ -22,6 +22,8 @@
 
 EC2 does not allow instance type changes while the instance is running. The hypervisor must release the current hardware allocation before AWS can reassign the instance to a different hardware class or size. The mandatory sequence is: **Stop → change type → Start**. Attempting to skip the stop step is not permitted — the console greys out the option entirely if the instance is in a running state.
 
+**AWS Reference:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/resize-instances.html
+
 ---
 
 ❌ **A — Why it's wrong:**
@@ -37,7 +39,7 @@ Terminating an instance is a **destructive and irreversible action** — the ins
 
 ---
 
-## Question 4
+## Question 2
 
 **You have installed the Unified CloudWatch Agent on an EC2 instance to collect custom metrics. You want to monitor individual processes running on your EC2 instance and their system utilization. What would you use?**
 
@@ -74,7 +76,7 @@ The **collectd protocol** allows the CloudWatch Agent to receive metrics from th
 
 ---
 
-## Question 6
+## Question 3
 
 **A company has EC2 instances running in a private subnet in a VPC without an Internet Gateway or NAT Gateway. They want secure SSH access without exposing instances to the Internet. Which AWS service should they use?**
 
@@ -109,8 +111,3 @@ The **collectd protocol** allows the CloudWatch Agent to receive metrics from th
 
 </details>
 
----
-
-**AWS Reference — EC2 Instance Connect Endpoint:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/connect-using-eice.html
-**AWS Reference — CloudWatch Agent procstat plugin:** https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Agent-procstat-process-metrics.html
-**AWS Reference — Changing instance type:** https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/resize-instances.html
